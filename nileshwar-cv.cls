@@ -24,8 +24,6 @@
 
 \RequirePackage{hyperref} % required to create links
 
-\RequirePackage{lipsum}
-
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
@@ -124,7 +122,7 @@
 	\end{tikzpicture}
 }
 
-% attaches icon to personal info and provides a text to display
+% attaches icon to personal info and provides a format to display
 \newcommand{\cvpersonalinfo}[2]{
 		\begin{minipage}{0.72cm}
 			\vspace{-0.4cm}
@@ -137,7 +135,7 @@
 		\end{minipage}	
 }
 
-% creates clickable href links for emails and websites
+% creates clickable href links for emails and websites, with icons
 \newcommand{\cvpersonallinks}[3]{
 	\begin{minipage}{0.72cm}
 		\vspace{-0.4cm}
@@ -153,6 +151,7 @@
 }
 
 % create side profile section - header \rule
+% this takes in side bar section header, and fills remaining portion with \rule
 \newlength{\textlength}
 \newlength{\linelength}
 \newcommand{\sidesection}[1]{
@@ -163,6 +162,7 @@
 	\rule[0.4\baselineskip]{\linelength}{1.5pt}}\\
 }
 
+% creates display graphic for language proficiency in CEFR format
 \newcommand\languages[1]{ 
 	\renewcommand{\languages}{
 		\begin{tikzpicture}
@@ -183,6 +183,7 @@
 	}
 }
 
+% creates display graphic for programming languages in aprogressbar format
 \newcommand\programmingskills[1]{ 
 	\renewcommand{\programmingskills}{
 		\begin{tikzpicture}
@@ -199,6 +200,7 @@
 	}
 }
 
+% creates floating bubbles for additional skills
 \newcommand{\skilltag}[1]{%
 	\renewcommand{\skilltag}{
 		\vspace{-0.2cm}
@@ -217,6 +219,7 @@
 	}
 }
 
+% creates display format for references
 \newcommand{\references}[1]{
 	\renewcommand{\references}{
 		\ifthenelse{\equal{#1}{}}{}{
@@ -228,7 +231,7 @@
 					\foreach [count=\i] \v in \d{
 						\ifthenelse{\equal{\i}{1}}{\noindent\textbf{\v}\\}{}
 						\ifthenelse{\equal{\i}{2}}{\noindent\v\\}{}
-						\ifthenelse{\equal{\i}{3}}{\href{mailto:\v}{\v}\\}{}
+						\ifthenelse{\equal{\i}{3}}{\href{mailto:\v}{\textit{\v}}\\}{}
 						\ifthenelse{\equal{\i}{4}}{Tel:~\v\\}{}
 					}
 				\end{minipage}
@@ -238,7 +241,8 @@
 	}
 }
 
-% create side bar profile
+% all commands required for side bar have been defined.
+% now create side bar profile
 \newcommand{\createsideprofile}{
 	% this creates a side profile bar based on color scheme
 	\begin{tikzpicture}[remember picture,overlay]
@@ -282,6 +286,7 @@
 		\ifthenelse{\equal{\cvgiturl}{}}{}
 		{\cvpersonallinks{\faIcon{github}}{https://}{\cvgiturl}}
 		
+		% highlight of skills
 		\sidesection{Languages}
 		\languages
 		
@@ -366,7 +371,7 @@
 	\textit{#1~}:~\small{{\color{black} #2}} \\
 }
 
-% thesis
+% creates the display format for thesis, based on the input
 \newcommand{\thesis}[1]{
 	\foreach [count=\i] \x in #1{
 		\ifthenelse{\equal{\i}{1}}{
@@ -397,7 +402,7 @@
 	}
 }
 
-% project
+% creates the display format for project, based on the input
 \newcommand{\project}[1]{
 	\foreach [count=\i] \x in #1{
 		\ifthenelse{\equal{\i}{1}}{
@@ -414,7 +419,7 @@
 	}
 }
 
-% Defining a template for responsibilities
+% creates a template for responsibilities
 \newcommand{\responsibilities}[1]{
 	\vspace{-0.4cm}
 	
@@ -433,7 +438,7 @@
 		}
 	\end{minipage}
 }
-% Defining a template for highlights
+% creates a template for highlights
 \newcommand{\highlights}[1]{
 	\vspace{-0.4cm}
 	
@@ -454,6 +459,7 @@
 	\end{minipage}
 }
 
+% creates profile highlights in bullet format
 \newcommand{\profiledetails}[1]{
 	\renewcommand{\profiledetails}{
 		\vspace{-0.5cm}
@@ -472,8 +478,7 @@
 	}
 }
 
-
-
+% creates entire section of work experience using above defined commands
 \newcommand{\workexperience}[1]{
 	\renewcommand{\workexperience}{
 		\vspace{-0.5cm}
@@ -513,6 +518,7 @@
 	}
 }
 
+% creates entire section of academics using above defined commands
 \newcommand{\academics}[1]{
 	\renewcommand{\academics}{
 		\vspace{-0.5cm}
@@ -548,7 +554,7 @@
 	}
 }
 
-
+% takes input in text format and displays as such
 \newcommand{\publications}[1]{
 	\renewcommand{\publications}{
 		\vspace{-0.4cm}
@@ -557,13 +563,13 @@
 			\normalsize \normalcolor
 			\foreach \x in {#1}{
 				\x
+				
 			}
 		\end{minipage}
-		\vspace{0.1cm}
-		
 	}
 }
 
+% creates highlights in bullet format
 \newcommand{\extracurriculars}[1]{
 	\renewcommand{\extracurriculars}{
 		\vspace{-0.5cm}
@@ -582,10 +588,9 @@
 	}
 }
 
-% create main body
+% create main body content
 \newcommand{\createmainprofile}{
-	% this creates a side profile bar based on color scheme
-		
+	% this creates a main profile based on color scheme
 	% the box/block which holds personal info and links
 	\begin{textblock}{12}(5.2, 0)
 		\header{Profile}
